@@ -1,6 +1,3 @@
-Passons au CONTRIBUTING.md car il est important d'avoir un guide clair pour les contributeurs. 
-
-```markdown
 # 🤝 Guide de Contribution HBNB
 
 ## 📋 Table des Matières
