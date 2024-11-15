@@ -1,4 +1,3 @@
-```markdown
 # 🚀 Documentation API HBNB v1.0.0
 
 ## 📋 Table des Matières
