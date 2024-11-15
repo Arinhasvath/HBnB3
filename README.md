@@ -1,4 +1,4 @@
-# HBNB - Clone Airbnb 🏠
+# HBNB - Part3 🏠
 ![HBNB Logo](./hbnb/assets/images/log.png)
 
 ## 📋 Table des Matières
