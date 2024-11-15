@@ -1,5 +1,5 @@
 # HBNB - Clone Airbnb 🏠
-![HBNB Logo](./hbnb/assets/images/hbnb_logo.png)
+![HBNB Logo](./hbnb/assets/images/log.png)
 
 ## 📋 Table des Matières
 - [Aperçu](#aperçu)
