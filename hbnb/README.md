@@ -1,4 +1,3 @@
-```markdown
 # HBNB - Clone Airbnb 🏠
 ![HBNB Logo](./assets/images/hbnb_logo.png)
 
