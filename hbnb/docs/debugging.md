@@ -1,4 +1,3 @@
-```markdown
 # 🔍 Guide de Débogage HBNB
 
 ## 🐛 Problèmes Courants
