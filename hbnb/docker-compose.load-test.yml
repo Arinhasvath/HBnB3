@@ -1,0 +1,13 @@
+# docker-compose.load-test.yml
+version: '3.8'
+
+services:
+  locust:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./tests/load_tests:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --host=http://web:5000
+    depends_on:
+      - web

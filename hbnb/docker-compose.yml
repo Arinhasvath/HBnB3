@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Service Nginx - Serveur web et proxy inverse
+  nginx:
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl
+    ports:
+      - "443:443"
+
+  # Service Web - Application Flask
+  web:
+    build: .
+    expose:
+      - "5000"
+    environment:
+      - DATABASE_URL=mysql://root:root@db/hbnb
+    depends_on:
+      - db
+
+  # Service MySQL - Base de données
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=hbnb
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backups:/backups
+    ports:
+      - "3306:3306"
+
+  # Service de Backup - Sauvegarde automatique de la base de données
+  backup:
+    image: alpine
+    volumes:
+      - ./backup_db.sh:/backup.sh
+      - ./backups:/backups
+      - ./config/cron/crontab:/etc/crontabs/root
+    command: crond -f -d 8
+    depends_on:
+      - db
+
+  # Service Prometheus - Collecte de métriques
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./config/prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  # Service Grafana - Visualisation des métriques
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+
+# Définition des volumes persistants
+volumes:
+  mysql_data:     # Stockage persistant pour MySQL
+  prometheus_data: # Stockage persistant pour Prometheus
+  grafana_data:    # Stockage persistant pour Grafana

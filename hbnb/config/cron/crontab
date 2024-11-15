@@ -1,0 +1,3 @@
+# Minute Heure Jour Mois Jour_Semaine Commande
+0 2 * * * /backup.sh # Backup à 2h du matin chaque jour
+0 0 * * 0 find /backups -mtime +7 -delete # Nettoyage hebdomadaire
