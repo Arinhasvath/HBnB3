@@ -1,4 +1,3 @@
-```markdown
 # 🔌 Guide des Intégrations HBNB
 
 ## 📋 Table des Matières
