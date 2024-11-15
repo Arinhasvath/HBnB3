@@ -1,4 +1,3 @@
-```markdown
 # 🚀 Guide de Démarrage Rapide HBNB
 
 ## 📋 Prérequis
@@ -82,4 +81,3 @@ db.session.commit()
 - Documentation API complète
 - Guide des tests
 - Guide de déploiement
-```
