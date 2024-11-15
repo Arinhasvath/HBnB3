@@ -1,5 +1,3 @@
-D'accord, je vais faire le fichier api_reference.md complet d'un coup.
-
 ```markdown
 # 📚 Documentation API de Référence HBNB
 
@@ -300,5 +298,4 @@ GET /endpoint?page=1&per_page=20
         "pages": 5
     }
 }
-```
 ```
