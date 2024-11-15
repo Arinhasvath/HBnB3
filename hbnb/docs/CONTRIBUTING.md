@@ -206,4 +206,3 @@ git branch -d feature/ma-fonctionnalite
 ## 🙏 Remerciements
 
 Merci de contribuer à HBNB! Votre aide est précieuse pour améliorer le projet.
-```
