@@ -1,4 +1,3 @@
-```markdown
 # 💻 Guide Développeur HBNB
 
 ## 📋 Table des Matières
