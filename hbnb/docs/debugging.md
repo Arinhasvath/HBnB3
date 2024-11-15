@@ -89,4 +89,3 @@ metrics = PrometheusMetrics(app)
 ```bash
 curl http://localhost:5000/health
 ```
-```
