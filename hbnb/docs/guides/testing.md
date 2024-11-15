@@ -1,4 +1,3 @@
-```markdown
 # 🧪 Guide des Tests HBNB
 
 ## 📋 Table des Matières
