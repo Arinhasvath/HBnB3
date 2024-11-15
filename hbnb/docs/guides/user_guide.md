@@ -1,4 +1,3 @@
-```markdown
 # 📱 Guide Utilisateur HBNB
 
 ## 📋 Table des Matières
