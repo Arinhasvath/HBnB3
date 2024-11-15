@@ -1,4 +1,3 @@
-```markdown
 # 📚 Documentation API de Référence HBNB
 
 ## 🌐 Informations Générales
