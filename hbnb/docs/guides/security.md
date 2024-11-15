@@ -1,4 +1,3 @@
-```markdown
 # 🔐 Guide de Sécurité HBNB
 
 ## 📋 Table des Matières
