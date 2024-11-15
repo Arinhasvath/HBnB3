@@ -1,4 +1,3 @@
-```markdown
 # 💻 Exemples de Code HBNB
 
 ## 📁 Structure des Exemples
