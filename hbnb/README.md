@@ -1,5 +1,3 @@
-OK, commençons par un README.md complet et bien structuré !
-
 ```markdown
 # HBNB - Clone Airbnb 🏠
 ![HBNB Logo](./assets/images/hbnb_logo.png)
