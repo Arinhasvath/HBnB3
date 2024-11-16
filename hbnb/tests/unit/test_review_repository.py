@@ -1,5 +1,7 @@
+from tests.base import BaseTestCase
+from collections.abc import Mapping
 """test_review_repository.py"""
-class TestReviewRepository(unittest.TestCase):
+class TestReviewRepository(BaseTestCase):
     def setUp(self):
         self.app = create_app()
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'

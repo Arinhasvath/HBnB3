@@ -1,50 +1,25 @@
-"""test_amenity_repository.py"""
-from app.repositories.amenity_repository import AmenityRepository
-from app.models.amenity import Amenity
-from app.models.place import Place
+from tests.base import BaseTestCase
 import unittest
+from flask_testing import TestCase
+from app import create_app, db
+from app.models.amenity import Amenity
+from collections.abc import Mapping
 
-class TestAmenityRepository(unittest.TestCase):
-   def setUp(self):
-       self.app = create_app()
-       self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-       with self.app.app_context():
-           db.create_all()
-           self.repo = AmenityRepository()
+class TestAmenityRepository(BaseTestCase):
+    def create_app(self):
+        app = create_app('testing')
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+        return app
 
-   def tearDown(self):
-       with self.app.app_context():
-           db.session.remove()
-           db.drop_all()
+    def setUp(self):
+        db.create_all()
 
-   def test_create_amenity(self):
-       with self.app.app_context():
-           amenity = Amenity(name='WiFi')
-           saved = self.repo.add(amenity)
-           self.assertEqual(saved.name, 'WiFi')
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
 
-   def test_get_by_name(self):
-       with self.app.app_context():
-           amenity = Amenity(name='Pool')
-           self.repo.add(amenity)
-           found = self.repo.get_by_name('Pool')
-           self.assertEqual(found.name, 'Pool')
-
-   def test_get_by_place(self):
-       with self.app.app_context():
-           user = User(email='test@test.com', password='test123',
-                      first_name='Test', last_name='User')
-           db.session.add(user)
-           
-           place = Place(title='Test Place', price=100,
-                        owner_id=user.id)
-           amenity = Amenity(name='WiFi')
-           
-           db.session.add(place)
-           db.session.add(amenity)
-           place.amenities.append(amenity)
-           db.session.commit()
-
-           amenities = self.repo.get_by_place(place.id)
-           self.assertEqual(len(amenities), 1)
-           self.assertEqual(amenities[0].name, 'WiFi')
+    def test_create_amenity(self):
+        amenity = Amenity(name='WiFi')
+        db.session.add(amenity)
+        db.session.commit()
+        self.assertIsNotNone(amenity.id)

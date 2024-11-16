@@ -4,6 +4,7 @@ from app import create_app
 from app.db import db
 from app.models import User, Place, Review, Amenity
 from werkzeug.security import check_password_hash
+from collections.abc import Mapping
 
 class TestModels(unittest.TestCase):
     """Test cases for all models."""

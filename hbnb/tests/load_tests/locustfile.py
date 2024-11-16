@@ -1,5 +1,6 @@
 # tests/load_tests/locustfile.py
 from locust import HttpUser, task, between
+from collections.abc import Mapping
 
 class HBNBUser(HttpUser):
     wait_time = between(1, 3)

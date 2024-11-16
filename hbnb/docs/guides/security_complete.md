@@ -413,3 +413,25 @@ class IncidentHandler:
         
         db.session.commit()
 ```
+## 📝 Checklist de Sécurité
+
+### Déploiement
+- [ ] Certificats SSL/TLS à jour
+- [ ] Variables d'environnement sécurisées
+- [ ] Ports non essentiels fermés
+- [ ] Services mis à jour
+- [ ] Sauvegardes chiffrées
+
+### Application
+- [ ] Validation des entrées
+- [ ] Protection XSS/CSRF
+- [ ] Rate limiting
+- [ ] Logging sécurisé
+- [ ] Authentification forte
+
+### Base de données
+- [ ] Accès restreint
+- [ ] Sauvegardes régulières
+- [ ] Données sensibles chiffrées
+- [ ] Requêtes préparées
+```
