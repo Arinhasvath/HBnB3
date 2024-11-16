@@ -1,12 +1,12 @@
 # 📱 Guide Utilisateur HBNB
 
 ## 📋 Table des Matières
-1. [Démarrage](#démarrage)
-2. [Gestion du Compte](#gestion-du-compte)
-3. [Recherche de Logements](#recherche-de-logements)
-4. [Réservations](#réservations)
-5. [Avis et Notes](#avis-et-notes)
-6. [Messagerie](#messagerie)
+1. [Démarrage](#Démarrage)
+2. [Gestion du Compte](#Compte)
+3. [Recherche de Logements](#Recherche de Logements)
+4. [Réservations](#Réservations)
+5. [Avis et Notes](#Avis et Notes)
+6. [Messagerie](#Messagerie)
 
 ## 🚀 Démarrage
 
