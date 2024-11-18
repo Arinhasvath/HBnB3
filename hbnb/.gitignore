@@ -86,3 +86,7 @@ production.db
 
 # JWT tokens
 *.jwt
+
+venv/
+__pycache__/
+*.pyc

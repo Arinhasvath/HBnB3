@@ -1,7 +1,9 @@
 """SQLAlchemy repository implementation."""
+
 from typing import Optional, List, Type
 from app.db import db
 from sqlalchemy.exc import SQLAlchemyError
+
 
 class SQLAlchemyRepository:
     """Base repository for all models."""

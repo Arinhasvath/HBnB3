@@ -1,6 +1,7 @@
 """
 API v1 initialization
 """
+
 # Import all namespaces
 from app.api.v1.auth import api as auth_ns
 from app.api.v1.users import api as users_ns

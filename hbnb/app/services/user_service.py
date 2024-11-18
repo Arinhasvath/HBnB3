@@ -1,16 +1,20 @@
 """
 User service module
 """
+
 from typing import Optional
 from app.models.user import User
 from app.services.facade import facade  # Import l'instance singleton
+
 
 class UserService:
     """Service class for managing user operations"""
 
     def __init__(self, facade_instance=None):
         """Initialize avec une instance de façade (utilise l'instance singleton par défaut)"""
-        self.facade = facade_instance if facade_instance is not None else facade
+        self.facade = (
+            facade_instance if facade_instance is not None else facade
+        )
 
     def get_user_by_id(self, user_id: str) -> Optional[User]:
         """Get user by ID"""
@@ -22,7 +26,7 @@ class UserService:
 
     def create_user(self, user_data: dict) -> User:
         """Create a new user"""
-        if self.get_user_by_email(user_data.get('email')):
+        if self.get_user_by_email(user_data.get("email")):
             raise ValueError("Email already exists")
         return self.facade.create_user(user_data)
 
@@ -31,12 +35,12 @@ class UserService:
         user = self.get_user_by_id(user_id)
         if not user:
             raise ValueError(f"User with id {user_id} not found")
-        
-        if 'email' in user_data:
-            existing_user = self.get_user_by_email(user_data['email'])
+
+        if "email" in user_data:
+            existing_user = self.get_user_by_email(user_data["email"])
             if existing_user and existing_user.id != user_id:
                 raise ValueError("Email already in use")
-                
+
         return self.facade.update_user(user_id, user_data)
 
     def delete_user(self, user_id: str) -> bool:
@@ -48,7 +52,7 @@ class UserService:
         if not user_id:
             return False
         user = self.get_user_by_id(user_id)
-        return bool(user and getattr(user, 'is_admin', False))
+        return bool(user and getattr(user, "is_admin", False))
 
     def authenticate_user(self, email: str, password: str) -> Optional[User]:
         """Authenticate user credentials"""

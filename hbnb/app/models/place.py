@@ -1,42 +1,88 @@
-"""place model module."""
+"""Place model module"""
+
 from app.db import db
 from app.models.base_model import BaseModel
 from app.models.association_tables import place_amenities
 
+
 class Place(BaseModel):
-   __tablename__ = 'places'
-   
-   title = db.Column(db.String(255), nullable=False)
-   description = db.Column(db.String(1024))
-   price = db.Column(db.Float, nullable=False)
-   latitude = db.Column(db.Float)
-   longitude = db.Column(db.Float)
-   owner_id = db.Column(db.String(36), db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    """
+    Classe Place représentant les logements.
+    Hérite de BaseModel pour id, created_at, updated_at.
+    Requirements:
+    - title VARCHAR(255)
+    - price doit être positif
+    - owner_id lié à User
+    """
 
-   amenities = db.relationship('Amenity', secondary=place_amenities,
-                             backref=db.backref('places', lazy=True))
-   owner = db.relationship('User', backref=db.backref('places', lazy=True, 
-                         cascade="all, delete-orphan"))
+    __tablename__ = "places"
 
-   def __init__(self, *args, **kwargs):
-       super().__init__(*args, **kwargs)
-       self.title = kwargs.get('title', '')
-       self.description = kwargs.get('description', '')
-       self.price = float(kwargs.get('price', 0))
-       self.latitude = kwargs.get('latitude')
-       self.longitude = kwargs.get('longitude')
-       self.owner_id = kwargs.get('owner_id')
-       self.validate()
+    # Colonnes requises par le projet
+    title = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text)
+    price = db.Column(db.Float, nullable=False)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+    owner_id = db.Column(
+        db.String(36),
+        db.ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
 
-   def validate(self):
-       if not self.title or not self.title.strip():
-           raise ValueError("Title cannot be empty")
-       if self.description and not self.description.strip():
-           raise ValueError("Description cannot be empty if provided")
-       if not isinstance(self.price, (int, float)) or self.price < 0:
-           raise ValueError("Price must be a positive number")
-       if self.latitude and not isinstance(self.latitude, (int, float)):
-           raise ValueError("Invalid latitude")
-       if self.longitude and not isinstance(self.longitude, (int, float)):
-           raise ValueError("Invalid longitude")
+    # Relations
+    owner = db.relationship(
+        "User",
+        backref=db.backref("places", lazy=True, cascade="all, delete-orphan"),
+    )
 
+    amenities = db.relationship(
+        "Amenity",
+        secondary=place_amenities,
+        lazy="subquery",  # Optimisé pour les requêtes fréquentes
+        back_populates="places",
+    )
+
+    def __init__(self, *args, **kwargs):
+        """Initialise une instance Place avec validation"""
+        super().__init__(*args, **kwargs)
+        self.title = kwargs.get("title", "")
+        self.description = kwargs.get("description", "")
+        self.price = float(kwargs.get("price", 0))
+        self.latitude = kwargs.get("latitude")
+        self.longitude = kwargs.get("longitude")
+        self.owner_id = kwargs.get("owner_id")
+        self.validate()
+
+    def validate(self):
+        """
+        Valide les données du logement:
+        - Titre non vide
+        - Prix positif
+        - Coordonnées valides si fournies
+        """
+        if not self.title or not self.title.strip():
+            raise ValueError("Title cannot be empty")
+        if not isinstance(self.price, (int, float)) or self.price < 0:
+            raise ValueError("Price must be a positive number")
+        if self.latitude and (not -90 <= self.latitude <= 90):
+            raise ValueError("Invalid latitude")
+        if self.longitude and (not -180 <= self.longitude <= 180):
+            raise ValueError("Invalid longitude")
+
+    def to_dict(self):
+        """
+        Convertit l'objet en dictionnaire pour l'API.
+        Inclut les relations essentielles.
+        """
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "price": float(self.price),
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "owner_id": self.owner_id,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
+            "amenities": [a.to_dict() for a in self.amenities],
+        }
